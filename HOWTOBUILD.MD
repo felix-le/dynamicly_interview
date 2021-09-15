@@ -10,7 +10,9 @@
 5.0 Run server
 5.1 install library express
 5.2 connect to MongoDB
-5.3 Test server
+5.3 Test server + status constant
 5.4 Create model
 5.5 Routers
 5.6 Controller
+5.7 create logs
+5.8 create filter - sort - pagination

@@ -1,11 +1,12 @@
 const Expenses = require('../models/expensesModel');
 const { statusConstants } = require('../constants/status.constant');
 const { responseServer, raiseException } = require('../utils/response');
+const logger = require('../utils/logger');
+
 const expenseCtrl = {
   get: async (req, res) => {
     try {
       const expenses = await Expenses.find();
-
       return responseServer(
         res,
         statusConstants.SUCCESS_CODE,
@@ -13,6 +14,7 @@ const expenseCtrl = {
         expenses
       );
     } catch (error) {
+      loggler.error(error);
       return raiseException(res, statusConstants.SERVER_ERROR_CODE, error);
     }
   },
@@ -32,6 +34,8 @@ const expenseCtrl = {
         amount,
       });
       await newExpense.save();
+      loggler.info(newExpense);
+
       return responseServer(
         res,
         statusConstants.SUCCESS_CODE,
@@ -39,19 +43,75 @@ const expenseCtrl = {
         newExpense
       );
     } catch (error) {
-      raiseException(
+      loggler.error(error);
+
+      return raiseException(
         res,
         statusConstants.SERVER_ERROR_CODE,
         'Can not create because something'
       );
     }
   },
-  put: async (req, res) => {
-    res.json('test expense');
-  },
 
   del: async (req, res) => {
-    res.json('test expense');
+    try {
+      await Expenses.findByIdAndDelete(req.params.id);
+      loggler.info(req.params.id);
+
+      return responseServer(
+        res,
+        statusConstants.SUCCESS_CODE,
+        'Delete the expense successfully'
+      );
+    } catch (error) {
+      loggler.error(error);
+
+      return raiseException(
+        res,
+        statusConstants.SERVER_ERROR_CODE,
+        'Cannot delete the expense',
+        error
+      );
+    }
+  },
+  put: async (req, res) => {
+    try {
+      const { expense_id, description, amount } = req.body;
+
+      if (!expense_id || !description || !amount) {
+        return raiseException(
+          res,
+          statusConstants.SERVER_ERROR_CODE,
+          'Please fill all the fields'
+        );
+      }
+
+      await Expenses.findOneAndUpdate(
+        {
+          _id: req.params.id,
+        },
+        {
+          expense_id,
+          description: description.toLowerCase(),
+          amount,
+        }
+      );
+      loggler.info(req.params.id);
+
+      return responseServer(
+        res,
+        statusConstants.SUCCESS_CODE,
+        'update expense successfully'
+      );
+    } catch (error) {
+      loggler.error(error);
+      return raiseException(
+        res,
+        statusConstants.SERVER_ERROR_CODE,
+        'Cannot update the expense',
+        error
+      );
+    }
   },
 };
 
