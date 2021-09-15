@@ -4,10 +4,22 @@ const mongoose = require('mongoose');
 
 const expensesSchema = new mongoose.Schema(
   {
-    name: {
+    expense_id: {
+      type: Number,
+      unique: true,
+      required: true,
+      default: 0,
+      trim: true,
+    },
+    description: {
       type: String,
       required: true,
-      unique: true,
+    },
+    amount: {
+      type: Number,
+      required: true,
+      default: 0,
+      trim: true,
     },
   },
   {
