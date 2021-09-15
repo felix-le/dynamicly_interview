@@ -1,6 +1,6 @@
 const expenseCtrl = {
   get: async (req, res) => {
-    console.log('hello');
+    res.json('test expense');
   },
 };
 
