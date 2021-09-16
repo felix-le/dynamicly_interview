@@ -131,14 +131,6 @@ const expenseCtrl = {
     try {
       const { expense_id, description, amount } = req.body;
 
-      const isExpenseExist = await Expenses.findOne({ expense_id });
-
-      if (isExpenseExist)
-        return raiseException(
-          res,
-          statusConstants.SERVER_ERROR_CODE,
-          'The expense already exists'
-        );
       await Expenses.findOneAndUpdate(
         {
           _id: req.params.id,

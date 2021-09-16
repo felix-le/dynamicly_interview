@@ -3,4 +3,4 @@ MongoDB
 user: dynamic-db
 pass: xQZ7RISvLCdoCGoe
 
-MONGODB_URL=mongodb+srv://dynamic-db:xQZ7RISvLCdoCGoe@cluster0.nll5d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+MONGODB_URL=mongodb://dynamic-db:xQZ7RISvLCdoCGoe@cluster0-shard-00-00.nll5d.mongodb.net:27017,cluster0-shard-00-01.nll5d.mongodb.net:27017,cluster0-shard-00-02.nll5d.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-3hdrtc-shard-0&authSource=admin&retryWrites=true&w=majority
