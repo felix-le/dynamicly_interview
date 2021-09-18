@@ -18,6 +18,9 @@ app.use('/api', routes);
 app.listen(PORT, () => {
   console.log('Server is running on port', PORT);
 });
+// Get videos
+app.use(express.static('public'));
+app.use('/videos', express.static(__dirname + '/videos'));
 
 // Connect to mongoDB
 const URI = process.env.MONGODB_URL;
