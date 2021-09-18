@@ -138,7 +138,7 @@ const expenseCtrl = {
     try {
       const { expense_id, description, amount } = req.body;
 
-      await Expenses.findOneAndUpdate(
+      const newObj = await Expenses.findOneAndUpdate(
         {
           _id: req.params.id,
         },
@@ -148,12 +148,14 @@ const expenseCtrl = {
           amount,
         }
       );
+
       logger.info(req.params.id);
 
       return responseServer(
         res,
         statusConstants.SUCCESS_CODE,
-        'update expense successfully'
+        'update expense successfully',
+        newObj
       );
     } catch (error) {
       logger.error(error);
