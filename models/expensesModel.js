@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const expensesSchema = new mongoose.Schema(
   {
     expense_id: {
-      type: Number,
+      type: String || Number,
       unique: true,
       required: true,
       default: 0,

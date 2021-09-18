@@ -21,14 +21,18 @@ app.listen(PORT, () => {
 
 // Connect to mongoDB
 const URI = process.env.MONGODB_URL;
-mongoose.connect(
-  URI,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  async (err) => {
-    if (err) throw err;
-    console.log('Connected to MongoDB');
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB Connected...');
+  } catch (err) {
+    console.log(err.message);
+    // Exit process with failure
+    process.exit(1);
   }
-);
+};
+connectDB();

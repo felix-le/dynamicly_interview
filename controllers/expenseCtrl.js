@@ -42,7 +42,7 @@ class APIfeatures {
   }
   pagination() {
     const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 3;
+    const limit = this.queryString.limit * 1 || 10;
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
     return this;
@@ -56,14 +56,21 @@ const expenseCtrl = {
         .filtering()
         .sorting()
         .pagination();
-      // const expenses = await Expenses.find();
       const expenses = await features.query;
+      const initDataFeatures = new APIfeatures(Expenses.find(), {
+        ...req.query,
+        limit: '',
+        page: '',
+      })
+        .filtering()
+        .sorting();
+      const initData = await initDataFeatures.query;
 
       return responseServer(
         res,
         statusConstants.SUCCESS_CODE,
         'get data successfully',
-        expenses
+        { expenses, initData }
       );
     } catch (error) {
       logger.error(error);

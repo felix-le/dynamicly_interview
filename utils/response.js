@@ -2,7 +2,6 @@ function responseServer(response, statusCode, message, data) {
   const responseData = {
     message,
     status: statusCode,
-    result: data.length,
   };
 
   if (data) {
