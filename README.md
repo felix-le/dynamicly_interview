@@ -23,6 +23,9 @@
 1. Clone the repository
 2. Run the following command:
 
+```nodejs
 - yarn
 - create .env file with content in exampleEVN
-- yarn dev
+- yarn start
+
+```
