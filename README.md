@@ -1,4 +1,5 @@
-# dynamicly_project_interview
+# dynamicly_project_FE
+[Live link](https://dynamicly.herokuapp.com/api)
 
 1. The goal of the application is to track expenses.
 2. The server for connecting to the database is running on port 8888.
